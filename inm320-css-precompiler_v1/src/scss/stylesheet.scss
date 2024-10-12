@@ -1,0 +1,331 @@
+// Define variables
+$body-font: 'Quando'; // body Font family variable
+$body-font-size: 15px; // font size variable
+$body-color: #787878; // body font colour variable
+$link-color: #324360; // Link color
+$cyan-hover: #35c4ce; // Hover color variable
+$font-family-hero: 'Josefin Sans', sans-serif; // Heading font family variable
+$general-padding: 20px 0; // General padding variable
+$font-weight-normal: 400; // Normal font weight variable
+$font-weight-bold: 900;    // Bold font weight variable
+$line-height-normal: 1.6; // General line height variable
+$line-height-tight: 1.3; // Tight line height variable
+
+// Mixin for font styles
+@mixin font-styles($family, $size, $weight) {
+   font-family: $family;
+   font-size: $size;
+   font-weight: $weight;
+}
+
+// Mixin for Padding and Margins
+@mixin spacing($padding: 0, $margin: 0) {
+   padding: $padding;
+   margin: $margin;
+}
+
+// Mixin for Link styles
+@mixin link-styles($color, $hover-color) {
+   color: $color;
+   text-decoration: none;
+   transition: .20s;
+ 
+   &:hover {
+     color: $hover-color;
+   }
+}
+
+// Mixin for Heading styles
+@mixin heading-styles($font-family, $line-height, $font-weight: $font-weight-normal) {
+    font-family: $font-family; // Set font family
+    line-height: $line-height; // Set line height
+    margin-top: 25px; // Margin above each heading
+    margin-bottom: 20px; // Margin below each heading
+    color: #111111; // Text color for all headings
+    word-wrap: break-word; // Word wrap for headings
+    font-weight: $font-weight; // Font weight for headings
+}
+
+
+
+// Applying variables and applying font style Mixins
+body {
+   @include font-styles($body-font, $body-font-size, $font-weight-normal); // Mixin used
+   color: $body-color;
+}
+
+
+img {
+   max-width: 100%;
+   height: auto;
+}
+p {
+   margin-bottom: 25px;
+   line-height: $line-height-normal; // line height variable normal applied
+}
+
+
+a {
+   font-weight: $font-weight-normal; // Font weight normal variable applied
+   text-decoration: none;
+   color: #111111;
+   transition: .20s;
+}
+a:hover {
+   color: #999999;
+}
+
+// Nesting 1 for the heading font
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+    // apply Heading style Mixin
+    @include heading-styles($font-family-hero, $line-height-tight); // Apply mixin
+
+   h1 { font-size: 37px; }
+   h2 { font-size: 31px; }
+   h3 { font-size: 26px; }
+   h4 { font-size: 21px; }
+   h5 { font-size: 18px; }
+   h6 { font-size: 15px; }
+}
+
+
+.container {
+   width: 94%;
+   margin: 0 auto;
+}
+
+// Nesting 2 for the header and main nav
+
+/* header and main nav */
+header {
+   font-family: $font-family-hero; // Font variable applied
+
+   nav {
+       ul {
+           display: none; 
+       }
+   }
+
+   .top-logo {
+       width: 200px;
+       margin: 20px auto 40px;
+   }
+}
+
+
+/* posts */
+
+/* Nesting 3 for the post*/
+
+article {
+    margin-bottom: 50px;
+    display: flex;
+    flex-wrap: wrap;
+
+    .image-part {
+        margin-bottom: 10px;
+    }
+
+    .post-title {
+        margin-top: 0;
+
+        a {
+            color: $link-color; // colour #324360 variable applied
+            text-transform: uppercase;
+            font-size: 26px;
+            font-weight: $font-weight-bold; // font weight bold variable applied
+            margin-top: 15px;
+            margin-bottom: 15px;
+            line-height: $line-height-tight; // line-height 1.3em-variable applied
+            transition: all .3s ease;
+
+            &:hover {
+                color: $cyan-hover; // Cyan hover variable applied
+            }
+        }
+    }
+}
+
+
+// /* footer */
+// Nesting 4 for the footer part{
+
+footer {
+   @include spacing(30px 0); // Using the spacing mixin for padding
+   text-align: center;
+   background: #eaf2ff;
+   color: #989898;
+
+   a {
+       color: #989898;
+
+       &:hover {
+           color: #111111;
+       }
+   }
+
+   .footer-logo {
+       width: 200px;
+       margin: 20px auto;
+       text-align: center;
+       vertical-align: middle;
+   }
+
+   .footer-social-links {
+    @include spacing($general-padding); // Padding variable applied and Mixin spacing style applied
+       line-height: 2em;
+
+       a {
+           margin: 0 10px;
+           font-size: 16px;
+           letter-spacing: 1px;
+           text-transform: uppercase;
+
+           span {
+               display: none;
+           }
+       }
+   }
+
+   #footer-copyright {
+    @include spacing($general-padding); // Padding variable applied
+       font-size: 12px;
+       color: #989898;
+   }
+}
+
+
+@media only screen and (min-width: 650px) {
+   .container {
+       width: 90%;
+   }
+
+   header nav {
+       max-width: 1170px;
+       margin: 0 auto;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       height: 60px;
+   }
+   header nav ul {
+       display: flex;
+   }
+   header nav li {
+       margin: 0 15px;
+       position: relative;
+       line-height: 24px;
+   }
+   header nav a {
+       font-family: $font-family-hero; // font variable applied
+       color: $link-color; // colour #324360 variable applied
+       letter-spacing: 1px;
+       text-transform: uppercase;
+       font-size: 12px;
+       font-weight: $font-weight-bold; // font weight variable bold applied
+   }
+   header nav a:hover {
+       color: $cyan-hover; // cyan hover variable applied
+   }
+   header nav li.menu-item-has-children > a::after {
+       margin-left: 7px;
+       font-family: 'FontAwesome';
+       font-size: 13px;
+       color: $link-color; //  colour #324360 variable applied
+       content: '\f078';
+   }
+   .current-menu-item a {
+      border-bottom: 2px solid $link-color; //  colour #324360 variable applied
+   }
+   /* sub nav */
+   header nav ul ul {
+       visibility: hidden;
+       opacity: 0;
+       display: block;
+       position: absolute;
+       z-index: 9999;
+       left: 0;
+       background: #f0f0f0;
+       transition: all 0.2s ease-out;
+   }
+   header nav ul li:hover ul {
+       visibility: visible;
+       opacity: 1;
+   }
+   header nav ul ul li {
+       border-top: 1px solid #e9e9e9;
+       margin: 0;
+   }
+   header nav ul ul a {
+       display: block;
+       color: #111111;
+       min-width: 175px;
+       margin: 0;
+       padding: 20px 10px;
+       line-height: 1.4em;
+       letter-spacing: 1px;
+       transition: .35s;
+   }
+   header nav ul ul a:hover {
+       background: #ffffff;
+       color: #000; 
+   }
+
+
+   /* posts */
+   // Nesting 5 for the posts
+
+   article {
+      display: flex;
+  
+      .image-part {
+          flex: 1;
+          overflow: hidden;
+          margin-bottom: 0;
+  
+          img {
+              transition: transform 3.5s ease-in-out;
+  
+              &:hover {
+                  transform: scale(1.5, 1.5);
+              }
+          }
+      }
+  
+      .content-part {
+          flex: 1;
+          padding-left: 50px;
+      }
+  }
+  
+
+
+/* footer */
+
+// Nesting 6 for the footer part
+
+   footer {
+      .footer-social-links {
+          a {
+              margin: 0 28px;
+  
+              span {
+                  display: inline;
+                  font-size: 11px;
+              }
+          }
+  
+          i {
+              margin-right: 5px;
+          }
+      }
+  }
+  
+}
